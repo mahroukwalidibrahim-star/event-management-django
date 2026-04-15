@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Participants - EventHub{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-white py-3">
+                <h3 class="fw-bold mb-0 text-primary">Liste des participants</h3>
+            </div>
+            
+            <ul class="list-group list-group-flush rounded-bottom">
+            {% for p in participants %}
+                <li class="list-group-item d-flex align-items-center py-3">
+                    <div class="bg-light rounded-circle p-2 me-3 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                        <i class="bi bi-person text-secondary"></i>
+                    </div>
+                    <span class="fw-medium">{{ p.user.username }}</span>
+                </li>
+            {% empty %}
+                <li class="list-group-item py-4 text-center text-muted">
+                    <i class="bi bi-people d-block fs-2 mb-2 text-light"></i>
+                    Aucun participant pour le moment.
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+        
+    </div>
+</div>
+{% endblock %}

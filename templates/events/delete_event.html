@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Supprimer l'événement - EventHub{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-4">
+    <div class="col-md-7 col-lg-5">
+        <div class="card border-0 shadow" style="border-top: 4px solid #dc3545 !important;">
+            <div class="card-body p-5 text-center">
+                <div class="mb-4 text-danger">
+                    <i class="bi bi-exclamation-triangle display-1"></i>
+                </div>
+                
+                <h3 class="fw-bold mb-3">Êtes-vous sûr ?</h3>
+                <p class="text-muted mb-4">
+                    Voulez-vous vraiment supprimer l'événement <br>
+                    <strong>"{{ event.titre }}"</strong> ? <br>
+                    Cette action est irréversible.
+                </p>
+                
+                <form method="POST" class="d-flex justify-content-center gap-3">
+                    {% csrf_token %}
+                    <a href="{% url 'event_list' %}" class="btn btn-light px-4">Annuler</a>
+                    <button type="submit" class="btn btn-danger px-4">Oui, supprimer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
