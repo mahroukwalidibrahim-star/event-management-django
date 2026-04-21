@@ -39,22 +39,4 @@ def participants_list(request, id):
         'event': event,
         'participants': participants
     })
-
-
-
-@login_required
-def event_detail(request, id):
-    event = Event.objects.get(id=id)
-
-    is_participant = Participation.objects.filter(
-        user=request.user,
-        event=event
-    ).exists()
-
-    participants_count = Participation.objects.filter(event=event).count()
-
-    return render(request, 'events/event_detail.html', {
-        'event': event,
-        'is_participant': is_participant,
-        'participants_count': participants_count
-    })
+

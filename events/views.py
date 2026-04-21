@@ -33,7 +33,19 @@ def add_event(request):
 @login_required
 def event_detail(request, id):
     event = Event.objects.get(id=id)
-    return render(request, 'events/event_detail.html', {'event': event})
+
+    is_participant = Participation.objects.filter(
+        user=request.user,
+        event=event
+    ).exists()
+
+    participants_count = Participation.objects.filter(event=event).count()
+
+    return render(request, 'events/event_detail.html', {
+        'event': event,
+        'is_participant': is_participant,
+        'participants_count': participants_count
+    })
 
 @login_required
 def edit_event(request, id):
@@ -90,15 +102,4 @@ def stats(request):
         'total_participations': total_participations,
         'top_event': top_event
     })
-
-@login_required
-def cancel_event(request, id):
-    event = Event.objects.get(id=id)
-
-    Participation.objects.filter(
-        user=request.user,
-        event=event
-    ).delete()
-
-    return redirect('event_detail', id=id)
 
